@@ -44,7 +44,7 @@ module "ec2_instance_centos" {
   key_name               = var.ec2_key_name
   monitoring             = true
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
-  subnet_id              = data.aws_subnet_ids.public_subnet_ids.ids[0]
+  subnet_id              = tolist(data.aws_subnet_ids.public_subnet_ids.ids)[0]
 
   tags = {
     Terraform   = "true"
@@ -63,7 +63,7 @@ module "ec2_instance_ubuntu" {
   key_name               = var.ec2_key_name
   monitoring             = true
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
-  subnet_id              = data.aws_subnet_ids.public_subnet_ids.ids[0]
+  subnet_id              = tolist(data.aws_subnet_ids.public_subnet_ids.ids)[0]
 
   tags = {
     Terraform   = "true"
