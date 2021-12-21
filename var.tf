@@ -4,11 +4,6 @@ variable "region" {
   default     = "eu-west-1"
 }
 
-variable "allowed_ip" {
-  type        = string
-  description = "ip address allowed to access"
-}
-
 variable "ubuntu_ami_id" {
   type        = string
   description = "ami id for ubuntu"
