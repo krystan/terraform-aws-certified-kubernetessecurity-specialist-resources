@@ -28,6 +28,9 @@ module "vpc" {
   }
 }
 
+data "aws_subnet_ids" "public_subnet_ids" {
+  vpc_id = module.vpc.vpc_id
+}
 
 module "ec2_instance_centos" {
   source  = "terraform-aws-modules/ec2-instance/aws"
@@ -40,7 +43,7 @@ module "ec2_instance_centos" {
   key_name               = var.ec2_key_name
   monitoring             = true
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
-  subnet_id              = module.vpc.public_subnet_arns[0]
+  subnet_id              = data.aws_subnet_ids.public_subnet_ids[0]
 
   tags = {
     Terraform   = "true"
@@ -59,7 +62,7 @@ module "ec2_instance_ubuntu" {
   key_name               = var.ec2_key_name
   monitoring             = true
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
-  subnet_id              = module.vpc.public_subnet_arns[0]
+  subnet_id              = data.aws_subnet_ids.public_subnet_ids[0]
 
   tags = {
     Terraform   = "true"
